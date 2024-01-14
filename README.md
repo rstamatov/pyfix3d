@@ -63,7 +63,8 @@ To start the program, after installing the required dependencies as explained ab
 
 The following three windows will appear:
 
-![](C:/Users/stamatov/Desktop/My 3D Space/Pyfix3d/Tutorial/screenshots/View upon start.jpeg)
+![View upon start](https://github.com/rstamatov/pyfix3d/assets/55981363/d75a6e1a-2f31-417c-b067-07ebb7988e0d)
+
 
 The window on the top left is the initialization menu. The window on the right is the viewer, which is empty for now. The black window on the bottom left is a terminal, which runs backend operations. We recommend minimizing it and making sure it stays open.
 
