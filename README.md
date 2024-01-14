@@ -9,12 +9,13 @@ Specific installation for different operating systems is outlined below.
 Pyfix3d was developed on Windows and extensively tested, so we recommend using it on Windows if possible. 
 
 1. Make sure you have Visual C++ Development Tools version 14.0 or higher.
-
-1. Install the required external libraries in a terminal:
+2. Download the Pyfix3d project. Navigate to the project folder and start a terminal from inside.
+3. Install the required external libraries in the terminal:
 
 **python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .**
 
 Note that “**python**” may have to be replaced **by “python3”, “py”, “python36”**, etc. depending on the alias used by the installation.
+It is important to do this from inside the project folder because it contains a wheel for the PPTK library (note the --find-links argument). If you download pip directly using pip, you may not find a distribution for the latest python versions.
 
 1. Then start the application from the terminal:
 
@@ -27,6 +28,7 @@ specifying the correct path. Alternatively, first navigate to the Pyfix3d projec
 1. Navigate to the project directory and install the required external libraries in a terminal:
 
 **python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .**
+It is important to do this from inside the project folder because it contains a wheel for the PPTK library (note the --find-links argument). If you download pip directly using pip, you may not find a distribution for the latest python versions.
 
 1. Follow the steps below to implement a workaround for a bug in the PPTK library:
 
@@ -51,6 +53,7 @@ specifying the correct path. Alternatively, first navigate to the Pyfix3d projec
 **python pyfix3d.py**
 
 ## Mac
+Not supported yet, updates coming soon.
 
 # Example workflow
 Below is a description of a set of steps demonstrating My3D Space functionality. To follow these steps, please use the provided example database.
