@@ -98,4 +98,16 @@ Double left clicking on an object centers the view on that object.
 
 Holding Shift + left click translates the view left/right or up/down.
 
+To select specific labels and hide the rest, we can use the “Find object” button. Pressing “Find object” invokes a pop-up window (left image below), where we can type the number of the labels of interest. Let’s type in the following sequence, separated by comas: 31,41,80,100,101. Clicking OK grays out all other labels, as shown on the right:
+![find objects](https://github.com/rstamatov/pyfix3d/assets/55981363/3d3d0375-5189-440d-a450-675daf038c32)
+There are three types of manual corrections that Pyfix3d supports: merging, splitting, and manual re-coloring.
+
+###Merging
+The blue and green labels on the right image above are part of the same chromosome. To merge them, let’s do the following sequence of actions:
+1.	Hold down Ctrl and click on the blue label. It will become “active”, appearing yellow.
+2.	Hold doen Ctrl and click on the green label. It will also become active and yellow.
+3.	Press “Correction”
+The blue label will now be merged with the green and they will be the same object from now on.
+This procedure can be used to merge more than two labels: select all labels to be merged using Ctrl + left click and then click “Correction”. They will be assigned the color of the last selected label.
+In case we want to correct all such instances (e.g. merge all blue to the green) over time, we can use “Correct all” instead of “Correct”.
 
