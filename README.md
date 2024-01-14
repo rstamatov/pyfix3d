@@ -102,12 +102,15 @@ To select specific labels and hide the rest, we can use the “Find object” bu
 ![find objects](https://github.com/rstamatov/pyfix3d/assets/55981363/3d3d0375-5189-440d-a450-675daf038c32)
 There are three types of manual corrections that Pyfix3d supports: merging, splitting, and manual re-coloring.
 
-###Merging
-The blue and green labels on the right image above are part of the same chromosome. To merge them, let’s do the following sequence of actions:
-1.	Hold down Ctrl and click on the blue label. It will become “active”, appearing yellow.
-2.	Hold doen Ctrl and click on the green label. It will also become active and yellow.
+![Sequential correction](https://github.com/rstamatov/pyfix3d/assets/55981363/f5bb0f12-2e0c-4262-8a23-d5bf17fdb4f0)
+
+### Merging
+The light and dark green labels on the first image above are part of the same chromosome. To merge them, let’s do the following sequence of actions:
+1.	Hold down Ctrl and click on the light label. It will become “active”, appearing yellow (second image above).
+2.	Hold down Ctrl and click on the dark green label. It will also become active and yellow (third image above).
 3.	Press “Correction”
-The blue label will now be merged with the green and they will be the same object from now on.
+The two labels will now be merged and they will be the same object from now on, adopting the color of the second (fourth image above).
 This procedure can be used to merge more than two labels: select all labels to be merged using Ctrl + left click and then click “Correction”. They will be assigned the color of the last selected label.
 In case we want to correct all such instances (e.g. merge all blue to the green) over time, we can use “Correct all” instead of “Correct”.
+
 
