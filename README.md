@@ -63,7 +63,7 @@ To start the program, after installing the required dependencies as explained ab
 
 The following three windows will appear:
 
-![](Aspose.Words.7093e295-5dba-471f-89c4-c63110b026c3.001.jpeg)
+![](C:/Users/stamatov/Desktop/My 3D Space/Pyfix3d/Tutorial/screenshots/View upon start.jpeg)
 
 The window on the top left is the initialization menu. The window on the right is the viewer, which is empty for now. The black window on the bottom left is a terminal, which runs backend operations. We recommend minimizing it and making sure it stays open.
 
