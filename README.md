@@ -6,7 +6,7 @@ This software allows manual correction of segmentation labels in 2D and 3D image
 
 Specific installation for different operating systems is outlined below.
 ## Windows
-My3D Space was developed on Windows and extensively tested, so we recommend using it on Windows if possible. 
+Pyfix3d was developed on Windows and extensively tested, so we recommend using it on Windows if possible. 
 
 1. Make sure you have Visual C++ Development Tools version 14.0 or higher.
 
@@ -18,11 +18,11 @@ Note that “**python**” may have to be replaced **by “python3”, “py”,
 
 1. Then start the application from the terminal:
 
-**python path/to/project/my\_3d\_space.py**
+**python path/to/project/Pyfix3d/pyfix3d.py**
 
-specifying the correct path. Alternatively, first navigate to the My3D Space project and open the terminal from that location, then type:
+specifying the correct path. Alternatively, first navigate to the Pyfix3d project and open the terminal from that location, then type:
 
-**python my\_3d\_space.py**
+**python pyfix3d.py**
 ## Linux
 1. Navigate to the project directory and install the required external libraries in a terminal:
 
@@ -44,11 +44,11 @@ specifying the correct path. Alternatively, first navigate to the My3D Space pro
 
 1. Then start the application from the terminal:
 
-**python path/to/project/my\_3d\_space.py**
+**python path/to/project/Pyfix3d/pyfix3d.py**
 
-specifying the correct path. Alternatively, first navigate to the My3D Space project and open the terminal from that location, then type:
+specifying the correct path. Alternatively, first navigate to the Pyfix3d project and open the terminal from that location, then type:
 
-**python my\_3d\_space.py**
+**python pyfix3d.py**
 
 ## Mac
 
@@ -57,9 +57,9 @@ Below is a description of a set of steps demonstrating My3D Space functionality.
 ## Database description
 The folder sample\_data contains 13 .tif files. Each .tif file is a 3D stack of a cell nucleus of size (120, 724, 724), i.e. 120 Z planes of size 724x724 pixels. These are different time points in a time lapse experiment, 8 seconds apart. The images represent chromosomes which are segmented and tracked over time. Each chromosome is a 3D object denoted with an integer. For example, all pixels of value 31 constitute one chromosome, and all pixels of value 40 constitute another. The visualizer will assign different colors to different numbers, and the chromosomes will appear as differently colored objects.
 ## Usage
-To start the program, after installing the required dependencies as explained above, navigate to My3D Space folder, start a terminal, and type:
+To start the program, after installing the required dependencies as explained above, navigate to Pyfix3d folder, start a terminal, and type:
 
-**python my\_3d\_space.py**
+**python pyfix3d.py**
 
 The following three windows will appear:
 
@@ -80,7 +80,8 @@ These are the pixel sizes in microns of the actual experiment.
 
 After pressing OK, the images will start loading. Upon completion, the following outlook should appear in the viewer:
 
-![](Aspose.Words.7093e295-5dba-471f-89c4-c63110b026c3.002.jpeg)
+![Loaded data home view](https://github.com/rstamatov/pyfix3d/assets/55981363/a83f4aed-6f20-4493-ac9b-3813a1652ff7)
+
 
 The sliding bar on the bottom changes the time point. 
 
