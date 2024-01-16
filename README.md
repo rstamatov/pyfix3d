@@ -63,7 +63,9 @@ Inside the menu (top left), “Segmentation folder” is the only required argum
 Start and end will enable loading a subset of the available images, at specific intervals. 
 Let’s use the following settings:
 
-start  1100     end  1105   interval  1                  Pixel size:    x   0.045  y   0.045  z   0.18
+start  1100     end  1105   interval  1                  
+Pixel size:    x   0.045  y   0.045  z   0.18
+
 These are the pixel sizes in microns of the actual experiment.
 After pressing OK, the images will start loading. Upon completion, the following outlook should appear in the viewer:
 
