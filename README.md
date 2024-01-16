@@ -108,17 +108,21 @@ Sometimes, it is desirable to recolor only part of a label, not the whole label.
 
 ![Source Destination correction](https://github.com/rstamatov/pyfix3d/assets/55981363/99f7545f-9e8c-4065-803c-f2c550ab342e)
 
-Splitting
+### Splitting
 Splitting a label is equivalent to creating a new label from a subset of its pixels. To do this, we set the source color exactly as above (using “Set/clear source color”), then delineating the part of the label we want to recolor and pressing “Make new”. The chunk will be recolored in a new, unused color (i.e. setting it to a unique integer), thus splitting the label.
-Saving
+
+### Saving
 Use the “Save all” button to save the changes. We recommend doing this often, as a safeguard against sudden crash of your machine or the program itself. It may be wise to save the results to a new folder, otherwise the existing images will be overwritten. Note that only the images that were changed will be saved.
-Creating a snapshot
+
+### Creating a snapshot
 The “Snapshot” button will create a picture of the current view and save it as “snap.png” in the project folder. You can then rename it and transfer it to another location.
-Marking and unmarking objects
+
+### Marking and unmarking objects
 Selecting an object with Ctrl + click and pressing the button “Mark” will add this label to the list of marked objects. It will be automatically hidden from the current view (but not deleted). We developed this feature to hide labels which are already corrected, so they get out of the way and allow better visualization of the rest.
 The buttons “Show marked” and “Show unmarked” will show show one of the groups, respectively, and hide the rest. “Show hidden” will show all labels. 
 Note that the list of marked objects is saved as the file “hidden_objects.txt” inside the project folder. Therefore, if you want to keep the list for later re-use, please copy this file to another location and then transfer it back after re-opening the program.  
-Reporting errors
+
+### Reporting errors
 Watch out for the file “error_log.txt” in the project folder. If it gets created, some exception has happened and has been caught. Please report this to us. If the exception is not caught and the program crashes, there should be some information in the terminal instead. Please report this to help us fix the issues.
 
 
