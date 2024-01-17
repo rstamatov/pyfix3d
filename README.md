@@ -47,8 +47,11 @@ python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
 2.	Follow the steps below to link a dependency for the PPTK library (replace the location in the first line with the correct location of your python site-packages)
 
 cd /home/ubuntu/.pyenv/versions/3.6.8/lib/python3.6/site-packages/pptk/libs/
+
 mv libz.so.1 libz.so.1.old
+
 sudo ln -s /lib/x86_64-linux-gnu/libz.so.1
+
 export QT_DEBUG_PLUGINS=1
 
 3.	Install the required Xinerama library
@@ -59,9 +62,13 @@ python pyfix3d.py
 
 ## Mac
 The program has been tested on Mac OS Catalina with python 3.10.
+
 1.	Navigate to the project directory and install the required external libraries in a terminal:
+   
 python -m pip install tifffile pysimplegui pynput pptk --find-links .
+
 2.	Then start the application:
+   
 python pyfix3d.py
 
 # Example workflow
