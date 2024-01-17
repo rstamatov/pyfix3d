@@ -26,10 +26,14 @@ Pyfix3d was developed on Windows and extensively tested, so we recommend using i
 1.	Make sure you have Visual C++ Development Tools version 14.0 or higher.
 
 2.	Install the required external libraries in a terminal:
+3.	
 python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
+
 Note that “python” may have to be replaced by “python3”, “py”, “python36”, etc. depending on the alias used by the installation. 
-3.	Then start the application from the terminal:
+5.	Then start the application from the terminal:
+
 python path/to/project/Pyfix3d/pyfix3d.py
+
 specifying the correct path. Alternatively, first navigate to the Pyfix3d project and open the terminal from that location, then type:
 python pyfix3d.py
 
