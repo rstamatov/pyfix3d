@@ -26,11 +26,11 @@ Pyfix3d was developed on Windows and extensively tested, so we recommend using i
 1.	Make sure you have Visual C++ Development Tools version 14.0 or higher.
 
 2.	Install the required external libraries in a terminal:
-3.	
-python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
+   
+3.	python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
 
 Note that “python” may have to be replaced by “python3”, “py”, “python36”, etc. depending on the alias used by the installation. 
-5.	Then start the application from the terminal:
+4.	Then start the application from the terminal:
 
 python path/to/project/Pyfix3d/pyfix3d.py
 
@@ -39,8 +39,11 @@ python pyfix3d.py
 
 ## Linux
 The program has been tested on Ubuntu 17.10 and Ubuntu 22.04.
+
 1.	Navigate to the project directory and install the required external libraries in a terminal:
+   
 python -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
+
 2.	Follow the steps below to link a dependency for the PPTK library (replace the location in the first line with the correct location of your python site-packages)
 
 cd /home/ubuntu/.pyenv/versions/3.6.8/lib/python3.6/site-packages/pptk/libs/
