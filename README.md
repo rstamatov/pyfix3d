@@ -35,6 +35,7 @@ Note that “python” may have to be replaced by “python3”, “py”, “py
 python path/to/project/Pyfix3d/pyfix3d.py
 
 specifying the correct path. Alternatively, first navigate to the Pyfix3d project and open the terminal from that location, then type:
+
 python pyfix3d.py
 
 ## Linux
