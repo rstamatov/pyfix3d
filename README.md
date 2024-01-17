@@ -2,7 +2,12 @@
 This software allows manual correction of segmentation labels in 2D and 3D images. It was developed specifically for correcting segmentation labels of chromosomes in cell nuclei but can be applied to other areas outside Molecular Biology. Manual correction is a necessary post-processing step of many automatic segmentation algorithms, which fail to segment objects perfectly, and require merging, splitting, and manual delineating. The software can also be used for generating ground truth segmentation masks for training supervised machine learning models. 
 
 # Installation using pre-compiled binaries
-Executable files for windows and Linux can be downloaded and run directly. For windows: download "Windows executable" and double click on 
+Executable files for windows and Linux can be downloaded and run directly. 
+•	Windows: download "Windows executable" and double click on Pyfix3d.bat
+•	Linux: download "Ubuntu executable" and start the application ./pyfix3d
+•	Mac: this is work in progress, please use the installation from source explained below.
+
+
 # Installation from source
 ## System requirements
 •	Windows: tested on Python 2.7, 3.6, and 3.7 but may work on other versions
