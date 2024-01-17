@@ -3,8 +3,11 @@ This software allows manual correction of segmentation labels in 2D and 3D image
 
 # Installation using pre-compiled binaries
 Executable files for windows and Linux can be downloaded and run directly. 
+
 •	Windows: download "Windows executable" and double click on Pyfix3d.bat
+
 •	Linux: download "Ubuntu executable" and start the application ./pyfix3d
+
 •	Mac: this is work in progress, please use the installation from source explained below.
 
 
