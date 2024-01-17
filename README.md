@@ -14,8 +14,11 @@ Executable files for windows and Linux can be downloaded and run directly.
 # Installation from source
 ## System requirements
 •	Windows: tested on Python 2.7, 3.6, and 3.7 but may work on other versions
+
 •	Linux: tested on Python 3.4 - 3.11 version but may work on earlier ones.
+
 •	Mac OS: tested on Python 3.10 but should work on any Python 3 version.
+
 To download python libraries, we recommend using PIP.
 Specific installation for different operating systems is outlined below. Please ensure that no errors are reported at the installation step. If there are errors you are unable to fix, please let us know.
 ## Windows
