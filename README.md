@@ -1,7 +1,9 @@
 ﻿# Overview
 This software allows manual correction of segmentation labels in 2D and 3D images. It was developed specifically for correcting segmentation labels of chromosomes in cell nuclei but can be applied to other areas outside Molecular Biology. Manual correction is a necessary post-processing step of many automatic segmentation algorithms, which fail to segment objects perfectly, and require merging, splitting, and manual delineating. The software can also be used for generating ground truth segmentation masks for training supervised machine learning models. 
 
-# Installation
+# Installation using pre-compiled binaries
+Executable files for windows and Linux can be downloaded and run directly. For windows: download "Windows executable" and double click on 
+# Installation from source
 ## System requirements
 •	Windows: tested on Python 2.7, 3.6, and 3.7 but may work on other versions
 •	Linux: tested on Python 3.4 - 3.11 version but may work on earlier ones.
