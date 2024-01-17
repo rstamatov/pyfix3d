@@ -1,0 +1,5 @@
+/*! https://mths.be/punycode v1.3.2 by @mathias */
+
+/*! rasterizeHTML.js - v1.3.0 - 2018-03-18
+* http://www.github.com/cburgmer/rasterizeHTML.js
+* Copyright (c) 2018 Christoph Burgmer; Licensed MIT */
