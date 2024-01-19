@@ -1,0 +1,45 @@
+sudo apt-get update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev git
+
+curl https://pyenv.run | bash
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+
+Restart the shell
+
+pyenv install 3.6.8
+pyenv global 3.6.8
+
+wget https://bootstrap.pypa.io/pip/3.6/get-pip.py
+python3.6 get-pip.py
+
+python3.6 -m pip install tifffile pysimplegui pynput==1.6.0 pptk --find-links .
+
+Workaround on Ubuntu:
+https://github.com/heremaps/pptk/issues/3
+Problem: After doing 'pip install pptk' on ubuntu/kubuntu 18.04, it doesn't work.
+
+Diagnosis: The 'viewer' doesn't work because the libz.so.1 in site-packages/pptk/libs has some unresolved dependency issue.
+
+Workaround:
+
+Rename the libz.so.1 in site-packages/pptk/libs
+e.g
+cd /home/ubuntu/.pyenv/versions/3.6.8/lib/python3.6/site-packages/pptk/libs/
+mv  libz.so.1  libz.so.1.old
+sudo ln -s /lib/x86_64-linux-gnu/libz.so.1
+export QT_DEBUG_PLUGINS=1
+sudo apt-get libxcb-xinerama0
+
+
+
+
+################ For python 3.8:
+wget https://files.pythonhosted.org/packages/67/01/2c0067e3a54d654e527dfc878d56db0f602fed6b468fec789cf287cf577d/pptk-0.1.0-cp37-none-manylinux1_x86_64.whl
+mv pptk-0.1.0-cp37-none-manylinux1_x86_64.whl pptk-0.1.0-cp38-none-manylinux1_x86_64.whl
+pip install --force-reinstall --no-deps pptk-0.1.0-cp38-none-manylinux1_x86_64.whl
+
+Alternatively, download the wheel, rename it, and then:
+pip install pptk --find-links .
