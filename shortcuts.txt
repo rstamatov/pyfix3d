@@ -1,0 +1,20 @@
+| Key Combination  | Functionality                                                                 |
+|------------------|-------------------------------------------------------------------------------|
+| Left Arrow       | Show the previous image frame.                                                |
+| Right Arrow      | Show the next image frame.                                                    |
+| Down Arrow       | Split over-segmented label.                                                   |
+| Ctrl + F         | Find selected labels                                                          |
+| H                | Show unmarked labels.                                                         |
+| A                | Show all labels                                                               |
+| M                | Mark selected labels                                                          |
+| N                | Unmark selected labels if previously marked                                   |
+| U                | Show marked labels.                                                           |
+| D                | Set destination color based on selected labels.                               |
+| S (without Ctrl) | Set the source color for selected labels; convert to surface representation   |
+| Ctrl + S         | Save all images                                                               |
+| G                | Gray out/show all others                                                      |
+| W                | Convert to mesh representation                        			   |
+| B                | Toggle white/black background.                                                |
+| I                | Toggle magic wand mode on and off                                             |
+| P                | Turn on bounding box around the last clicked label    			   |
+|------------------|-------------------------------------------------------------------------------|
