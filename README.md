@@ -70,7 +70,7 @@ In addition to the main view window, you will see a menu pop up (Fig. S5a). The 
  
 Fig. S5 | Main menu and submenus. (a) The main menu has a sliding bar and buttons for changing the image in the sequence (as in a time series) and four buttons: the action button used mainly for executing a correction operation; the default mode which allows viewing and crude-level corrections; the magic wand mode, which enables precise corrections, and the curve fitting mode, allowing manual spline fitting. (b) The file submenu lists operations related to loading and saving; (c) the view submenu contains commands related to the viewer interface; (d) Manipulation commands are listed in the Edit submenu.
 
-The File, Show, and Edit submenus list corresponding commands (Fig. S5b-d). Notice that most commands have a keyboard shortcut. All commands are summarized in Table S3.
+The File, Show, and Edit submenus list corresponding commands (Fig. S5b-d). Notice that most commands have a keyboard shortcut. 
 
 ## Label selection and marking
 In the default mode (hand icon), Ctrl + Left click selects a label and highlights it in yellow. Several labels can be selected. To de-select all selected labels, use right click only (no Ctrl).
@@ -128,59 +128,4 @@ Use the “Save all” button to save the changes. We recommend doing this often
 
 ## Reporting errors
 Please report any unusual behavior to us. If an exception is not caught and the program crashes, there should be some information in the terminal. Please report this to help us fix the issues.
-
-|-Operation-|-Mouse/keyboard command-|-Menu command-|-Reverted by-|
-| Rotation--|-Left click + Drag------|--------------|-------------|		
-|-Translation|-Left click + Shift + Drag--|		
-Zoom	                     Scroll		
-Center on object	         Double left click		
-Light/dark background	     B		                                        B
-Black and white		                                          Show --> Black and white	       Show --> Randomize all colors (Ctrl + O)
-Mesh	                     W		                                                             C
-Change frame	             Left, right arrows	              Sliding bar, arrowheads	
-Selection	                 Ctrl + Left click		                                             Right click
-Change color of selected	 O		
-Gray/show others	         G	                              Show --> Gray/show others	G
-Find	                     F	                              Show --> Find…	                 G
-Randomize all colors	    Ctrl + O	                        Show --> Randomize all colors	
-Set destination	          D	                                Edit --> Set destination	       D
-Set source	              S	                                Edit --> Set source	             S
-Correction	              Ctrl + right click	              Edit --> Correction	             Ctrl + Z
-Merge on all frames		    Edit --> Merge on all frames	
-Switch source and destination	    V	                        Edit --> Switch source and destination	      V
-Mark a label	            M		                                                               N
-Unmark a label	          N		                                                               M
-Show marked	              U	                                Show --> Show marked	           A
-Show unmarked 	          M	                                Show --> Show unmarked	         A
-Show all	                A	                                Show --> Show hidden	
-]
-Table S3 | Summary of the basic operations. The more advanced options are explained in the text.
-Supplementary videos
-
-Supplementary Video 1
-2D rotation of a Hela-Kyoto cell, with chromosomes segmented by the trained Embedseg model.
-
-Supplementary Video 2
-Time lapse of 4 cells from 3 different cell lines undergoing mitosis, showing maximum intensity projections of the raw signal, restored by CARE, and the segmented and tracked chromosomes.
-
-Supplementary Video 3
-Time lapse of the segmented and tracked chromosomes 9 RPE-1 cells visualized using Pyfix3d. The cell in the bottom right corner is the bridge phenotype discussed in the main text.
-
-Supplementary Video 4
-Two examples of the mitotic flow field for the cases when the centrosomes are on the same side (prometaphase pathway) or on opposite sides (prophase pathway) of the nucleus at the time of NEBD. Green: eg5-GFP; red: H2B-RFP. White arrows indicate the direction of motion of each pixel as determined by pairwise registration of the RFP channel by elastix. Arrow vectors are averaged over 15 frames (2 minutes). See methods, section 7.3.1 for details on pixel-wise flow field generation.
-
-Supplementary Video 5
-Temporal dynamics of one of the copies of chromosome 2. Top: the segmentation mask of chromosome 2 is isolated and displayed over time. Bottom: pairwise contacts between each pair of points on a spline going through the chromosome, displayed over time. See methods, section 12 for explanation of how the matrices are generated.
-
-Supplementary Video 6
-Temporal dynamics of one of the copies of chromosome 6, similar to movie S3. Top: the segmentation mask of chromosome 6 is isolated and displayed over time. Bottom: pairwise contacts between each pair of points on a spline going through the chromosome, displayed over time. See methods, section 12 for explanation of how the matrices are generated.
-
-Supplementary Video 7
-Temporal dynamics of chromosomes 2 and 6. Top: segmentation masks of these chromosomes. Bottom: pairwise contacts between each pair of points on a spline going through the chromosome, displayed over time. See methods, section 12 for explanation of how the matrices are generated.
-
-Supplementary Video 8
-An example of chromatin sliding in a late G2 cell, presented on Fig. 6h. Each frame is a maximum intensity projection of 8 slices, 800 nm apart, acquired at 1 min intervals. The arrows represent the flow field computed by pairwise elastic registration of each adjacent maximum intensity projected images in time.
-
-
-
 
