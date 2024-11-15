@@ -35,7 +35,7 @@ The folder sample_data contains 13 .tif files. Each .tif file is a 3D stack of a
 ## Initial settings
 To start the program, after installing the required dependencies as explained above, navigate to Pyfix3d folder, start a terminal, and type:
 python pyfix3d.py
-The following window will appear (Fig. S2):
+The following window will appear (Fig. S1):
 
  ![startup menu](https://github.com/user-attachments/assets/3b1f2031-ec07-4279-968c-a9e1880cea9e)
 
@@ -54,7 +54,7 @@ Pixel size:    x   0.045
 Pixel size  y   0.045  
 Pixel size z   0.18
 These are the pixel sizes in microns of the actual experiment.
-After pressing OK, the images will start loading. Upon completion, the following outlook should appear in the viewer (Fig. S3):
+After pressing OK, the images will start loading. Upon completion, the following outlook should appear in the viewer (Fig. S2):
 
  ![main view](https://github.com/user-attachments/assets/0f43c6c7-7e9e-45e5-b1cb-838385502ead)
 
@@ -66,35 +66,35 @@ This is the main view of Pyfix3D. The following mouse operations are available:
 •	Scroll: zoom in and out
 •	Double left click on an object: center the view on this object.
 
-Different outlooks are available. To toggle between dark and light background, use the “B” key (Fig. S4a). Mesh representation is enabled with the “W” key and disabled with “C” (Fig. S4b). Black and white color mapping can be chosen from the View submenu (Fig. S4c). The last option is especially useful for highlighting a particular object or a group of objects – see later how to change the color of a particular label.
+Different outlooks are available. To toggle between dark and light background, use the “B” key (Fig. S3a). Mesh representation is enabled with the “W” key and disabled with “C” (Fig. S3b). Black and white color mapping can be chosen from the View submenu (Fig. S3c). The last option is especially useful for highlighting a particular object or a group of objects – see later how to change the color of a particular label.
 
  
 Fig. S3 | Different views are available. (a) Dark background, enabled with the “B” key. (b) Mesh representation, enabled with the “O” key. (c) Black and white color mapping, enabled from the View submenu.
 
-In addition to the main view window, you will see a menu pop up (Fig. S5a). The sliding bar, as well as the left and right arrowheads change the image in the loaded sequence (e.g. time). Four buttons are visible below the sliding bar. The button with the scissors is the action command – used for correction and curve manipulation (see later). The three remaining buttons are the mutually exclusive working modes. The default mode (hand icon) is used for visualization, rotation/zooming, chromosome selection, and crude corrections. The magic wand button enables fine corrections, and the curve fitting button allows semi-automatic spline fitting to the segmentation labels. All these procedures are explained below.
+In addition to the main view window, you will see a menu pop up (Fig. S4a). The sliding bar, as well as the left and right arrowheads change the image in the loaded sequence (e.g. time). Four buttons are visible below the sliding bar. The button with the scissors is the action command – used for correction and curve manipulation (see later). The three remaining buttons are the mutually exclusive working modes. The default mode (hand icon) is used for visualization, rotation/zooming, chromosome selection, and crude corrections. The magic wand button enables fine corrections, and the curve fitting button allows semi-automatic spline fitting to the segmentation labels. All these procedures are explained below.
 
  ![submenus](https://github.com/user-attachments/assets/84228cab-fc3d-46ce-bcd5-6f913797965e)
 
 Fig. S4 | Main menu and submenus. (a) The main menu has a sliding bar and buttons for changing the image in the sequence (as in a time series) and four buttons: the action button used mainly for executing a correction operation; the default mode which allows viewing and crude-level corrections; the magic wand mode, which enables precise corrections, and the curve fitting mode, allowing manual spline fitting. (b) The file submenu lists operations related to loading and saving; (c) the view submenu contains commands related to the viewer interface; (d) Manipulation commands are listed in the Edit submenu.
 
-The File, Show, and Edit submenus list corresponding commands (Fig. S5b-d). Notice that most commands have a keyboard shortcut. 
+The File, Show, and Edit submenus list corresponding commands (Fig. S4b-d). Notice that most commands have a keyboard shortcut. 
 
 ## Label selection and marking
 In the default mode (hand icon), Ctrl + Left click selects a label and highlights it in yellow. Several labels can be selected. To de-select all selected labels, use right click only (no Ctrl).
 Several operations can be performed with selected labels:
-•	Gray all others – by using the “G” key or Show  Gray/Show others. This option leaves the selected labels colored, while dimming out all the rest. (Fig. S6) Use the same command to revert.
+•	Gray all others – by using the “G” key or Show  Gray/Show others. This option leaves the selected labels colored, while dimming out all the rest. (Fig. S5) Use the same command to revert.
 
 •	Mark – by using the “M” key. This marks a label as processed and hides it. This is especially useful when many labels are crowded in a compact 3D structure, and hiding the ones not needed will facilitate access to the ones within. To show all labels, including the ones hidden, use the “A” key. Pressing “M” without any selection hides all marked labels. “U” shows all hidden. To unmark a marked label, use “N”.
 Note that marked labels are saved in a text file called hidden_objects.txt inside the program folder. This way the marked objects can be loaded later, after restarting the program. Several such groups of marked objects can be created. To do this, use File  Create/load group – and select an existing object file to load or choose a location and name for a new group. 
 In the simplest case, when just one group of marked labels is enough, and you’re relying on the default hidden_objects.txt file, don’t forget to delete it if starting a new task.
 Searching for a specific label is also possible by using Show  Find…, or with Ctrl + “F.” You can list several numbers separated by a comma. The specified label(s) will remain colored while the rest will be dimmed. This view is reversed by “g” or “Show/Gray others”.
-•	Changing the color – the “o” key opens a pop-up asking for a new color for the selected label in hexadecimal format (Fig. S7a-c). For example, dd0000 is the color code for a shade of red (Fig. S7d). Such color codes can be found online. This option is especially useful when nearby labels accidentally ended up with similar colors. Alternatively, one can use Ctrl + O without selection to randomize the colors of all labels.
+•	Changing the color – the “o” key opens a pop-up asking for a new color for the selected label in hexadecimal format (Fig. S6a-c). For example, dd0000 is the color code for a shade of red (Fig. S6d). Such color codes can be found online. This option is especially useful when nearby labels accidentally ended up with similar colors. Alternatively, one can use Ctrl + O without selection to randomize the colors of all labels.
 
 •	Correction, merging and spline fitting – explained later. The explanations for those refer to marking of a label, as outlined in this section.
 
  ![gray_others](https://github.com/user-attachments/assets/09777201-61c6-4da8-a811-25dbd501a7af)
 
-Fig. S5 | An example of the “gray others” option
+Fig. S4 | An example of the “gray others” option
 
 
 ![recolor](https://github.com/user-attachments/assets/58b0ad9e-c727-4dbd-b8fa-68fa310f06eb)
@@ -104,8 +104,8 @@ Fig. S6 | Changing the color of a selected label. (a) A decision is made to reco
 
 
 ## Correction
-Correction refers to changing the identity (integer value) of a group of pixels, making them part of a different segmentation label. This is not simply changing their visualization color, the actual value of those pixels is modified. In the general case, correction is necessary because two nearby labels are touching each other and part of one needs to be recolored to the other (Fig. S8a). Thus, correction generally involves two actors: the label which will be modified (here referred to as the source), and the label whose color we desire (referred to as the destination). In other words, we will recolor part of the source using the color of the destination. Having these definitions in mind, there are several types of corrections:
-•	Magic wand correction. First, select the destination label and press “D” (or Edit  Set destination). Then set the source label with “S” (or Edit  Set source). Now go to the magic wand mode. Using the mouse with the Ctrl key pressed, outline the region that needs to be corrected (Fig. S8b). Note that only pixels part of the source can be selected. This operation selects all pixels of the source label within the 2D drawn shape, and along the ray of view in depth (Fig. S8c). Therefore, make sure no part of the label is hidden behind itself, unless you want to select it as well. Now pressing the action button (scissors icon), or Ctrl + Right click, performs the correction (Fig. S8d). Don’t forget to clear the destination with “D” and the source with “S”, without any selection. 
+Correction refers to changing the identity (integer value) of a group of pixels, making them part of a different segmentation label. This is not simply changing their visualization color, the actual value of those pixels is modified. In the general case, correction is necessary because two nearby labels are touching each other and part of one needs to be recolored to the other (Fig. S7a). Thus, correction generally involves two actors: the label which will be modified (here referred to as the source), and the label whose color we desire (referred to as the destination). In other words, we will recolor part of the source using the color of the destination. Having these definitions in mind, there are several types of corrections:
+•	Magic wand correction. First, select the destination label and press “D” (or Edit  Set destination). Then set the source label with “S” (or Edit  Set source). Now go to the magic wand mode. Using the mouse with the Ctrl key pressed, outline the region that needs to be corrected (Fig. S7b). Note that only pixels part of the source can be selected. This operation selects all pixels of the source label within the 2D drawn shape, and along the ray of view in depth (Fig. S7c). Therefore, make sure no part of the label is hidden behind itself, unless you want to select it as well. Now pressing the action button (scissors icon), or Ctrl + Right click, performs the correction (Fig. S7d). Don’t forget to clear the destination with “D” and the source with “S”, without any selection. 
 The source and destination can also be set from within the magic wand mode. However, clicking selection is disabled there, so you can outline a small region of the desired labels with the mouse.
 The last correction can be undone with Ctrl + Z.
 •	Merging – after setting the source and destination as above, use Edit  Merge on all frames – to recolor the whole source label to the destination, effectively merging them on all loaded images. Merging can be performed without setting source and destination. Just select two or more labels with Ctrl + Left click, and they can all be merged using the last selected label as the destination. The merging operation is undoable. 
@@ -122,8 +122,8 @@ Fig. S7 | Correction. (a) Top right corner – the magic wand mode is selected. 
 
 ## Curve fitting
 Since Pyfix3D was originally developed for mitotic chromosomes, which are elongated tubular structures, it was essential to implement the option to fit curves semi-automatically. This is similar to skeletonization but most skeletonization algorithms are implemented automatically and don’t allow user interaction in case of errors, such as missing the structure endpoints or failing to capture loops. On the other hand, Fiji has the option to place landmarks manually in the 3D viewer but they are situated on the surface of the structure and not the center; besides, fitting a curve through these points requires further programming.
-To use the curve fitting option in Pyfix3D, set it as destination (Fig. S9a), and choose the curve fitting button. Now place individual points along the structure using the mouse cursor and Ctrl + Left click. Right click (without Ctrl) clears the current points, so you can start over. A yellow sphere will appear at the location of each click (Fig. S9b). Notice that points are automatically located in the center of the structure. As was the case with the correction operation, avoid the case when part of the label is behind another part of the same label – in this case you must rotate the view, otherwise the point may not be placed correctly. 
-After finishing with the selection points, you can use the action button (scissors icon) or Ctrl + Right click to fit a spline curve along the selected points (Fig. S9c). Only one curve can be fitted to a label. To delete the current curve, use Edit  Delete active spline.
+To use the curve fitting option in Pyfix3D, set it as destination (Fig. S8a), and choose the curve fitting button. Now place individual points along the structure using the mouse cursor and Ctrl + Left click. Right click (without Ctrl) clears the current points, so you can start over. A yellow sphere will appear at the location of each click (Fig. S8b). Notice that points are automatically located in the center of the structure. As was the case with the correction operation, avoid the case when part of the label is behind another part of the same label – in this case you must rotate the view, otherwise the point may not be placed correctly. 
+After finishing with the selection points, you can use the action button (scissors icon) or Ctrl + Right click to fit a spline curve along the selected points (Fig. S8c). Only one curve can be fitted to a label. To delete the current curve, use Edit  Delete active spline.
 To save the curves, use File  Save splines and choose a folder. To load splines, use File  Load splines, but make sure no other files have been manually added to the splines folder because this will interfere with the loading. 
 Again, in the context of chromosomes, it was useful to have the option of denoting the location of the centromere. After the curve has been fit, you can choose a point on the curve, and press the action button (or Ctrl + Right click). This will place a sphere on the curve and divide it in two, splitting a chromosome into two arms.
 File  Save measurements generates an excel file with two tabs – for the lengths of each spline  and for the ratio of the two arms in case a splitting point is created. Note that the length depends on the pixel sizes chosen upon initialization. If you load a set of splines and choose different pixel sizes, saving the measurements again will re-calculate the values using the new pixel sizes.
