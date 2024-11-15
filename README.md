@@ -129,9 +129,9 @@ Use the “Save all” button to save the changes. We recommend doing this often
 ## Reporting errors
 Please report any unusual behavior to us. If an exception is not caught and the program crashes, there should be some information in the terminal. Please report this to help us fix the issues.
 
-Operation                  Mouse/keyboard command	          Menu command	                   Reverted by
-Rotation	                 Left click + Drag		
-Translation	               Left click + Shift + Drag		
+|-Operation-|-Mouse/keyboard command-|-Menu command-|-Reverted by-|
+| Rotation--|-Left click + Drag------|--------------|-------------|		
+|-Translation|-Left click + Shift + Drag--|		
 Zoom	                     Scroll		
 Center on object	         Double left click		
 Light/dark background	     B		                                        B
