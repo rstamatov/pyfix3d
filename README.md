@@ -36,8 +36,10 @@ The folder sample_data contains 13 .tif files. Each .tif file is a 3D stack of a
 To start the program, after installing the required dependencies as explained above, navigate to Pyfix3d folder, start a terminal, and type:
 python pyfix3d.py
 The following window will appear (Fig. S2):
- 
-Fig. S2 | Initialization menu. The user is prompted to specify the location of segmentation images to be displayed or corrected; optionally, a folder with oversegmentations can be specified as well, to aid in segmentation as a hidden layer (see below); a folder with raw images can be chosen for overlaying the segmentation. Start, end, interval positions and pixel size are also optional.
+
+ ![startup menu](https://github.com/user-attachments/assets/3b1f2031-ec07-4279-968c-a9e1880cea9e)
+
+Fig. S1 | Initialization menu. The user is prompted to specify the location of segmentation images to be displayed or corrected; optionally, a folder with oversegmentations can be specified as well, to aid in segmentation as a hidden layer (see below); a folder with raw images can be chosen for overlaying the segmentation. Start, end, interval positions and pixel size are also optional.
 
 This is the initialization menu and it will appear in addition to the terminal, which runs backend operations. We recommend minimizing the terminal window and making sure it stays open.
 Inside the initialization menu, “segmentation” is the only required argument. Using the Browse button, please navigate to the folder sample_data. Leaving the other fields blank will load all images from the selected folder, and will assign 1 (arbitrary unit) to the pixel size in x and y, and 2 to the pixel size in z. These pixel sizes should be set in case of anisotropic data – where the physical distance between Z planes is different from the pixel size in XY. This is the case with the current data. 
@@ -53,8 +55,10 @@ Pixel size  y   0.045
 Pixel size z   0.18
 These are the pixel sizes in microns of the actual experiment.
 After pressing OK, the images will start loading. Upon completion, the following outlook should appear in the viewer (Fig. S3):
- 
-Fig. S3 | The main view of Pyfix2D. Each segmentation label is given a random color.
+
+ ![main view](https://github.com/user-attachments/assets/0f43c6c7-7e9e-45e5-b1cb-838385502ead)
+
+Fig. S2 | The main view of Pyfix2D. Each segmentation label is given a random color.
 
 This is the main view of Pyfix3D. The following mouse operations are available:
 •	Left + Drag: rotation
@@ -63,12 +67,15 @@ This is the main view of Pyfix3D. The following mouse operations are available:
 •	Double left click on an object: center the view on this object.
 
 Different outlooks are available. To toggle between dark and light background, use the “B” key (Fig. S4a). Mesh representation is enabled with the “W” key and disabled with “C” (Fig. S4b). Black and white color mapping can be chosen from the View submenu (Fig. S4c). The last option is especially useful for highlighting a particular object or a group of objects – see later how to change the color of a particular label.
+
  
-Fig. S4 | Different views are available. (a) Dark background, enabled with the “B” key. (b) Mesh representation, enabled with the “O” key. (c) Black and white color mapping, enabled from the View submenu.
+Fig. S3 | Different views are available. (a) Dark background, enabled with the “B” key. (b) Mesh representation, enabled with the “O” key. (c) Black and white color mapping, enabled from the View submenu.
 
 In addition to the main view window, you will see a menu pop up (Fig. S5a). The sliding bar, as well as the left and right arrowheads change the image in the loaded sequence (e.g. time). Four buttons are visible below the sliding bar. The button with the scissors is the action command – used for correction and curve manipulation (see later). The three remaining buttons are the mutually exclusive working modes. The default mode (hand icon) is used for visualization, rotation/zooming, chromosome selection, and crude corrections. The magic wand button enables fine corrections, and the curve fitting button allows semi-automatic spline fitting to the segmentation labels. All these procedures are explained below.
- 
-Fig. S5 | Main menu and submenus. (a) The main menu has a sliding bar and buttons for changing the image in the sequence (as in a time series) and four buttons: the action button used mainly for executing a correction operation; the default mode which allows viewing and crude-level corrections; the magic wand mode, which enables precise corrections, and the curve fitting mode, allowing manual spline fitting. (b) The file submenu lists operations related to loading and saving; (c) the view submenu contains commands related to the viewer interface; (d) Manipulation commands are listed in the Edit submenu.
+
+ ![submenus](https://github.com/user-attachments/assets/84228cab-fc3d-46ce-bcd5-6f913797965e)
+
+Fig. S4 | Main menu and submenus. (a) The main menu has a sliding bar and buttons for changing the image in the sequence (as in a time series) and four buttons: the action button used mainly for executing a correction operation; the default mode which allows viewing and crude-level corrections; the magic wand mode, which enables precise corrections, and the curve fitting mode, allowing manual spline fitting. (b) The file submenu lists operations related to loading and saving; (c) the view submenu contains commands related to the viewer interface; (d) Manipulation commands are listed in the Edit submenu.
 
 The File, Show, and Edit submenus list corresponding commands (Fig. S5b-d). Notice that most commands have a keyboard shortcut. 
 
@@ -84,13 +91,16 @@ Searching for a specific label is also possible by using Show  Find…, or wi
 •	Changing the color – the “o” key opens a pop-up asking for a new color for the selected label in hexadecimal format (Fig. S7a-c). For example, dd0000 is the color code for a shade of red (Fig. S7d). Such color codes can be found online. This option is especially useful when nearby labels accidentally ended up with similar colors. Alternatively, one can use Ctrl + O without selection to randomize the colors of all labels.
 
 •	Correction, merging and spline fitting – explained later. The explanations for those refer to marking of a label, as outlined in this section.
+
+ ![gray_others](https://github.com/user-attachments/assets/09777201-61c6-4da8-a811-25dbd501a7af)
+
+Fig. S5 | An example of the “gray others” option
+
+
+![recolor](https://github.com/user-attachments/assets/58b0ad9e-c727-4dbd-b8fa-68fa310f06eb)
+
  
-Fig. S6 | An example of the “gray others” option
-
-
-
- 
-Fig. S7 | Changing the color of a selected label. (a) A decision is made to recolor the white label to red. (b) The label is selected with the mouse. (c) The “o” key brings up the color selection window, requiring a hexadecimal value for RGB. (d) The result after execution.
+Fig. S6 | Changing the color of a selected label. (a) A decision is made to recolor the white label to red. (b) The label is selected with the mouse. (c) The “o” key brings up the color selection window, requiring a hexadecimal value for RGB. (d) The result after execution.
 
 
 ## Correction
@@ -106,8 +116,9 @@ The last such operation is reversible with Ctrl + Z.
 
 •	Splitting – to split a label in parts, label it as destination. Then select a subset of its pixels, either by drawing with the magic wand or by clicking on an oversegmentation chunk. “Edit  Create new label” will create a new, unique ID for the selected region. 
 
- 
-Fig. S8 | Correction. (a) Top right corner – the magic wand mode is selected. Center – part of the purple label must be changed to be part of the green. (b) Ctrl + Left + Drag allows manual delineating of a region of interest. (c) Upon completion of the drawn shape, all pixels inside the shape, and along the view direction in 3D are highlighted. (c) The result after executing the command with the action button (or Ctrl + right).
+ ![corrections](https://github.com/user-attachments/assets/8e730439-2b9d-42f1-9efa-2439d1bc4b9e)
+
+Fig. S7 | Correction. (a) Top right corner – the magic wand mode is selected. Center – part of the purple label must be changed to be part of the green. (b) Ctrl + Left + Drag allows manual delineating of a region of interest. (c) Upon completion of the drawn shape, all pixels inside the shape, and along the view direction in 3D are highlighted. (c) The result after executing the command with the action button (or Ctrl + right).
 
 ## Curve fitting
 Since Pyfix3D was originally developed for mitotic chromosomes, which are elongated tubular structures, it was essential to implement the option to fit curves semi-automatically. This is similar to skeletonization but most skeletonization algorithms are implemented automatically and don’t allow user interaction in case of errors, such as missing the structure endpoints or failing to capture loops. On the other hand, Fiji has the option to place landmarks manually in the 3D viewer but they are situated on the surface of the structure and not the center; besides, fitting a curve through these points requires further programming.
@@ -118,8 +129,11 @@ Again, in the context of chromosomes, it was useful to have the option of denoti
 File  Save measurements generates an excel file with two tabs – for the lengths of each spline  and for the ratio of the two arms in case a splitting point is created. Note that the length depends on the pixel sizes chosen upon initialization. If you load a set of splines and choose different pixel sizes, saving the measurements again will re-calculate the values using the new pixel sizes.
 Note that saving the measurements and saving the splines themselves are distinct operation.
 
+![curve fitting](https://github.com/user-attachments/assets/82e4e6d5-732a-4669-b21f-f2fdf66721fc)
+
+
  
-Fig. S9 | Curve fitting. (a) The chromosome in cyan is chosen as destination to enable curve fitting on it. (b) Selecting the curve fitting button converts the destination label to mesh representation. Each mouse click places a point, centering it in depth. (c) The action button (or Ctrl + right click) fits a spline curve through the points.
+Fig. S8 | Curve fitting. (a) The chromosome in cyan is chosen as destination to enable curve fitting on it. (b) Selecting the curve fitting button converts the destination label to mesh representation. Each mouse click places a point, centering it in depth. (c) The action button (or Ctrl + right click) fits a spline curve through the points.
 
 To select specific labels and hide the rest, we can use the “Find object” button. Pressing “Find object” invokes a pop-up window (left image below), where we can type the number of the labels of interest. Let’s type in the following sequence, separated by comas: 31,41,80,100,101. Clicking OK grays out all other labels, as shown on the right:
 
