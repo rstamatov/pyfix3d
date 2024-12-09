@@ -19,6 +19,9 @@ from random import choices, choice, uniform
 import time
 import re
 
+if vtk.vtkMultiThreader.GetGlobalDefaultNumberOfThreads() > 4:
+    vtk.vtkMultiThreader.SetGlobalMaximumNumberOfThreads(4)
+
 class Visualizer_3D:
     def __init__(self, folder, overseg_folder, raw_folder, start, end, interval, spacing_x = 1.0, spacing_y = 1.0, spacing_z = 1.0):
         """
