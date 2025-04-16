@@ -231,7 +231,7 @@ class VisualizerGui:
 
         # Slider configuration
         self.slider_value = tk.DoubleVar()
-        self.slider = ttk.Scale(self.window, from_ = self.visualizer_3d.start_t, to = self.visualizer_3d.end_t,
+        self.slider = ttk.Scale(self.window, from_ = self.visualizer_3d.start_t, to = self.visualizer_3d.end_t-1,
                                 orient = 'horizontal', variable = self.slider_value,
                                 command = self.on_slider_update)
         self.slider.grid(row = 3, column = 1, columnspan = total_columns-1, sticky = 'ew')
@@ -392,12 +392,16 @@ class VisualizerGui:
     ################################################################################################################################################
         
     def next(self):
-        self.on_slider_update(self.visualizer_3d.t + 1)
+        self.visualizer_3d.update_time("forward")
+        self.slider_value.set(self.visualizer_3d.t)
+        self.visualizer_3d.renderer.GetRenderWindow().Render()
 
     ################################################################################################################################################
         
     def prev(self):
-        self.on_slider_update(self.visualizer_3d.t - 1)
+        self.visualizer_3d.update_time("backward")
+        self.slider_value.set(self.visualizer_3d.t)
+        self.visualizer_3d.renderer.GetRenderWindow().Render()
 
     ################################################################################################################################################
 
