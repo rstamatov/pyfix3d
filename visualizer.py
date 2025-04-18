@@ -18,6 +18,7 @@ from line_fit_interaction import *
 from random import choices, choice, uniform
 import time
 import re
+from tkinter import messagebox
 
 if vtk.vtkMultiThreader.GetGlobalDefaultNumberOfThreads() > 4:
     vtk.vtkMultiThreader.SetGlobalMaximumNumberOfThreads(4)
@@ -130,7 +131,8 @@ class Visualizer_3D:
 
     def OnClose(self, window, event):
         self.log("visualizer.py: OnClose")
-        quit()
+        if messagebox.askyesno("Confirm Exit", "Are you sure you want to close the application?"):
+            quit()
 
     ########################################################################################################
 
@@ -595,7 +597,6 @@ class Visualizer_3D:
             self.correction()
 
         # After having done a correction, ensure the oversegmentation chunks don't span several real labels
-
         real_img = self.get_numpy_array(self.t)
         self.oversegmentations[self.t] = self.split_overseg_labels_spanning_several_real(real_img, self.oversegmentations[self.t])
 
@@ -1391,6 +1392,10 @@ class Visualizer_3D:
             self.correction()
 
         self.destination_color = previous_destination
+
+        # After having done a correction, ensure the oversegmentation chunks don't span several real labels
+        real_img = self.get_numpy_array(self.t)
+        self.oversegmentations[self.t] = self.split_overseg_labels_spanning_several_real(real_img, self.oversegmentations[self.t])
 
     ##########################################################################################################################
 
