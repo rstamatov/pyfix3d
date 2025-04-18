@@ -651,7 +651,10 @@ class Visualizer_3D:
 
         if self.draw_line_mode:
             self.LineFit.hide_curves()
-            self.LineFit.load_existi
+            self.LineFit.load_existing_models()
+
+        if self.gui is not None:
+            self.gui.slider_value.set(self.t)
 
     #########################################################################################################
                
