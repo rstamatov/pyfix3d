@@ -130,9 +130,21 @@ class Visualizer_3D:
     ########################################################################################################
 
     def OnClose(self, window, event):
+
         self.log("visualizer.py: OnClose")
         if messagebox.askyesno("Confirm Exit", "Are you sure you want to close the application?"):
+            self.renderWindow.Finalize()  # Properly release the VTK render window resources
+            self.renderWindowInteractor.TerminateApp()
             quit()
+        else:
+            self.gui.window.destroy()
+            self.renderWindowInteractor.Initialize()
+            
+            self.gui = VisualizerGui(self)
+            self.gui.slider_value.set(self.t)
+            self.gui.run_loop()
+
+            self.renderWindowInteractor.Start()
 
     ########################################################################################################
 
@@ -639,10 +651,7 @@ class Visualizer_3D:
 
         if self.draw_line_mode:
             self.LineFit.hide_curves()
-            self.LineFit.load_existing_models()
-
-        if self.gui is not None:
-            self.gui.slider_value.set(self.t)
+            self.LineFit.load_existi
 
     #########################################################################################################
                

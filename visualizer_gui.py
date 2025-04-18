@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, ttk
+from tkinter import messagebox
 
 class PathChoice:
     def __init__(self):
@@ -406,13 +407,12 @@ class VisualizerGui:
     ################################################################################################################################################
 
     def on_close(self):
-        # Perform any cleanup tasks here
-        print("Closing the application...")
-        # Optionally handle other shutdown processes here
+
+        if messagebox.askyesno("Confirm Exit", "Are you sure you want to close the application?"):
+
+            print("Closing the application...")
+            quit()
         
-        # Finally, destroy the window
-        self.window.destroy()
-        quit()
 
     ################################################################################################################################################
 
