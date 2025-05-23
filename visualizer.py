@@ -5,7 +5,7 @@
 """
 import vtk
 from vtk.util.numpy_support import numpy_to_vtk, vtk_to_numpy
-from tifffile import imread, imsave
+from tifffile import imread, imwrite
 import glob
 import numpy as np
 import tkinter as tk
@@ -18,7 +18,6 @@ from line_fit_interaction import *
 from random import choices, choice, uniform
 import time
 import re
-from tkinter import messagebox
 
 if vtk.vtkMultiThreader.GetGlobalDefaultNumberOfThreads() > 4:
     vtk.vtkMultiThreader.SetGlobalMaximumNumberOfThreads(4)
@@ -34,7 +33,6 @@ class Visualizer_3D:
         :param spacing_y: Spacing between voxels in y-axis.
         :param spacing_z: Spacing between voxels in z-axis.
         """
-        self.log("visualizer.py: init")
             
         self.t = 0
         self.oversegmentations = []
@@ -119,37 +117,13 @@ class Visualizer_3D:
         self.renderWindowInteractor.Start()
 
     ########################################################################################################
-        
-    def log(self, message):
-        if not os.path.exists("log.txt"):
-            f = open("log.txt", "w+")
-            f.close()
-        with open("log.txt", "a") as f:
-            f.write(message + "\n")
-            
-    ########################################################################################################
 
     def OnClose(self, window, event):
-
-        self.log("visualizer.py: OnClose")
-        if messagebox.askyesno("Confirm Exit", "Are you sure you want to close the application?"):
-            self.renderWindow.Finalize()  # Properly release the VTK render window resources
-            self.renderWindowInteractor.TerminateApp()
-            quit()
-        else:
-            self.gui.window.destroy()
-            self.renderWindowInteractor.Initialize()
-            
-            self.gui = VisualizerGui(self)
-            self.gui.slider_value.set(self.t)
-            self.gui.run_loop()
-
-            self.renderWindowInteractor.Start()
+        quit()
 
     ########################################################################################################
 
     def add_raw_data(self):
-        self.log("visualizer.py: add_raw_data")
         if len(self.raw) == 0:
             return
 
@@ -181,13 +155,13 @@ class Visualizer_3D:
         self.rawVolume.SetProperty(volumeProperty)
 
         # Add the volume to the renderer
-        self.renderer.AddViewProp(self.rawVolume)           
+        self.renderer.AddViewProp(self.rawVolume)
+        self.enderer.SetLayer(1)
         
 
     ########################################################################################################
 
     def adjust_camera(self):
-        self.log("visualizer.py: adjust_camera")
         # This function will automatically adjust the camera based on the bounds of the objects in the scene
         self.renderer.ResetCamera()
 
@@ -199,7 +173,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def init_destination_and_source_color(self):
-        self.log("visualizer.py: init_destination_and_source_color")
 
         width, height = self.renderWindowInteractor.GetRenderWindow().GetSize()
         
@@ -239,7 +212,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def longest_digit_substring(self, s):
-        self.log("visualizer.py: longest_digit_substring")
         # Find all substrings of s that consist only of digits
         digit_substrings = re.findall('\d+', s)
         
@@ -260,8 +232,6 @@ class Visualizer_3D:
         :param spacing_y: Spacing between voxels in y-axis.
         :param spacing_z: Spacing between voxels in z-axis.
         """
-        self.log("visualizer.py: linit_image_data")
-        
         # Variables representing the spacing between voxels along each axis
         self.spacing_x = spacing_x
         self.spacing_y = spacing_y
@@ -299,15 +269,9 @@ class Visualizer_3D:
             current_labels = list(np.unique(real_img))
             current_labels.remove(0)
 
-            # Make sure no labels >= 255
-            for label in current_labels:
-                if label >= 255:
-                    new_label = self.find_available_label()
-                    real_img[real_img == label] = new_label
-                    
-            current_labels = list(np.unique(real_img))
-            current_labels.remove(0) 
-
+            # Remove labels >= 255
+            # TODO - think of a better way to handle this. The user may want to have these as well
+            current_labels = [x for x in current_labels if x < 255]
                 
             self.labels_per_image[loaded] = current_labels
 
@@ -375,8 +339,6 @@ class Visualizer_3D:
         Initializes the color and opacity transfer functions for the volume visualization. This sets up how the scalar
         values in the data are mapped to colors and opacities in the rendered volume.
         """
-        self.log("visualizer.py: init_colors_and_opacity")
-        
         # Assuming the scalar range is from 0 to 255, adjust if it's different
         max_label = 255
 
@@ -402,9 +364,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def add_text_for_time(self):
-
-        self.log("visualizer.py: add_text_for_time")
-        
         # Create a vtkTextActor to display the time
         self.textActor = vtk.vtkTextActor()
         self.textActor.SetInput("Time: " + str(self.t) + "/" + str(len(self.imageDataObjects) - 1))
@@ -422,9 +381,6 @@ class Visualizer_3D:
         Initializes the rendering window, renderer, render window interactor, and sets up the interaction style.
         Adds mouse and key press event observers for interactive visualization.
         """
-
-        self.log("visualizer.py: init_rendering")
-        
         self.renderWindow = vtk.vtkRenderWindow()
         self.renderer = vtk.vtkRenderer()
 
@@ -448,9 +404,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def copy_opacity(self, original_function):
-
-        self.log("visualizer.py: copy_opacity")
-        
         # Create a new instance of the PiecewiseFunction
         new_function = vtk.vtkPiecewiseFunction()
        
@@ -476,8 +429,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def create_highlight_actors(self, label):
-
-        self.log("visualizer.py: create_highlight_actors")
 
         # Getting the overlay mask based on the oversegmentation label
         overlay_mask = np.copy(self.oversegmentations[self.t])
@@ -526,7 +477,6 @@ class Visualizer_3D:
     ########################################################################################################
 
     def remove_highlight_actors(self):
-        self.log("visualizer.py: remove_highlight_actors")
         for actor in self.highlightActors:
             self.renderer.RemoveActor(actor)
         self.highlightActors.clear()
@@ -548,7 +498,6 @@ class Visualizer_3D:
             self.gui = VisualizerGui(self)
             self.gui.run_loop()
         """
-        self.log("visualizer.py: OnMouseClick")
 
         worldPos = None
         
@@ -591,8 +540,6 @@ class Visualizer_3D:
 
     def make_correction(self):
 
-        self.log("visualizer.py: make_corrections")
-
         if self.backup is None:
             self.backup = vtk.vtkImageData()
             self.backup.DeepCopy(self.imageDataObjects[self.t])
@@ -609,6 +556,7 @@ class Visualizer_3D:
             self.correction()
 
         # After having done a correction, ensure the oversegmentation chunks don't span several real labels
+
         real_img = self.get_numpy_array(self.t)
         self.oversegmentations[self.t] = self.split_overseg_labels_spanning_several_real(real_img, self.oversegmentations[self.t])
 
@@ -617,8 +565,6 @@ class Visualizer_3D:
     #########################################################################################################
 
     def undo(self):
-
-        self.log("visualizer.py: undo")
 
         if self.t != self.last_correction_t or self.undo_copy is None:
             return
@@ -632,30 +578,6 @@ class Visualizer_3D:
 
         self.undo_copy = None
 
-    def update_time(self, direction):
-        if direction == "forward" and self.t >= len(self.imageDataObjects) - 1:
-            return
-        if direction == "backward" and self.t <= 0:
-            return
-        
-        self.clear_selection()
-        self.selected_labels = []
-
-        if direction == "forward":
-            self.t += 1
-        else:
-            self.t -= 1
-        self.set_current_image(self.t)
-        self.textActor.SetInput("Time: " + str(self.t) + "/" + str(len(self.imageDataObjects) - 1))
-
-
-        if self.draw_line_mode:
-            self.LineFit.hide_curves()
-            self.LineFit.load_existing_models()
-
-        if self.gui is not None:
-            self.gui.slider_value.set(self.t)
-
     #########################################################################################################
                
     def onKeyPress(self, obj, event):
@@ -665,23 +587,48 @@ class Visualizer_3D:
         :param obj: The render window interactor instance.
         :param event: The event that triggered the callback.
         """
-
-        self.log("visualizer.py: OnKeyPress")
-        
         # Handle key press events for navigation and modification
 
         key = obj.GetKeySym()  # Get the key symbol for the key that was pressed
         ctrl_pressed = obj.GetControlKey()
         
         if key == 'Left':
-            self.update_time("backward")
+            # Add your logic for left arrow press, e.g., show the previous image
             
-        elif key == 'Right':
-            self.update_time("forward")
+            if self.t > 0:
+                self.clear_selection()
+                self.selected_labels = []
+                
+                self.t -= 1
+                self.set_current_image(self.t)
 
-        #elif key == 'Down':
-            #self.save_current_view_as_jpeg("snap.jpeg")
-            #self.save_movie()
+                if self.draw_line_mode:
+                    self.LineFit.hide_curves()
+                    self.LineFit.load_existing_models()
+
+                if self.gui is not None:
+                    self.gui.update_slider_position(self.t)
+
+        elif key == 'Right':
+            # Add your logic for right arrow press, e.g., show the next image
+            
+            if self.t < len(self.imageDataObjects) - 1:
+                self.clear_selection()
+                self.selected_labels = []
+                
+                self.t += 1
+                self.set_current_image(self.t)
+
+                if self.draw_line_mode:
+                    self.LineFit.hide_curves()
+                    self.LineFit.load_existing_models()
+
+                if self.gui is not None:
+                    self.gui.update_slider_position(self.t)
+
+        elif key == 'Down':
+            self.save_current_view_as_jpeg("snap.jpeg")
+            self.save_movie()
         #    self.split_overseg_label()
 
         elif key == 'Up':
@@ -771,8 +718,6 @@ class Visualizer_3D:
             print ("Please set a destination color first.")
             return
         """
-
-        self.log("visualizer.py: enter_spline_mode")
         
         self.interactorStyle.clear_selection()
         self.draw_line_mode = True
@@ -793,8 +738,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def enter_default_mode(self):
-
-        self.log("visualizer.py: enter_default_mode")
 
         self.interactorStyle.clear_selection()
         self.show_grayed()
@@ -820,8 +763,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def enter_magic_wand_mode(self):
-
-        self.log("visualizer.py: enter_magic_wand_mode")
         self.interactorStyle.clear_selection()
             
         self.draw_line_mode = False
@@ -840,8 +781,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def update_destination_color(self):
-
-        self.log("visualizer.py: update_destination_color")
 
         if len(self.selected_labels) == 0:
             self.destination_color = 0
@@ -863,8 +802,6 @@ class Visualizer_3D:
 
     def update_source_color(self):
 
-        self.log("visualizer.py: update_source_color")
-
         if len(self.selected_labels) == 0:
             self.source_color = 0
             self.sourceActor.GetTextProperty().SetColor(1.0, 1.0, 1.0)
@@ -881,9 +818,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def switch_source_destination(self):
-
-        self.log("visualizer.py: switch_source_destination")
-        
         if self.source_color == 0 or self.destination_color == 0:
             return
         
@@ -903,8 +837,6 @@ class Visualizer_3D:
 
     def gray_all_others(self):
 
-        self.log("visualizer.py: gray_all_others")
-
         selected = self.selected_labels
         self.clear_selection()
         
@@ -912,7 +844,7 @@ class Visualizer_3D:
         
         for obj in range(1, 255):
             if obj not in selected:
-                self.surfaceActors[obj].GetProperty().SetOpacity(0.03)
+                self.surfaceActors[obj].GetProperty().SetOpacity(0.0) #0.03 TEMP
                 
         self.selected_labels = []
 
@@ -921,11 +853,9 @@ class Visualizer_3D:
     #############################################################################################################
 
     def shades_of_gray(self):
-
-        self.log("visualizer.py: shades_of_gray")
         
         for label in range(1, 255):            
-            color = 3 * list(np.random.choice(np.arange(0, 1, 0.1), size = 1))
+            color = [0, 0, 0] #3 * list(np.random.choice(np.arange(0, 1, 0.1), size = 1)) # TEMP
             self.colorTransferFunction.AddRGBPoint(label, color[0], color[1], color[2])
             self.surfaceActors[label].GetProperty().SetColor(color)
                 
@@ -937,8 +867,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def randomize_color_of_selected(self):
-
-        self.log("visualizer.py: randomize_color_of_selected")
 
         selected = self.selected_labels
         self.clear_selection()
@@ -956,8 +884,6 @@ class Visualizer_3D:
 
     def randomize_all_colors(self):
 
-        self.log("visualizer.py: randomize_all_colors")
-
         self.clear_selection()
 
         for label in range(1, 255):            
@@ -972,8 +898,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def show_grayed(self):
-
-        self.log("visualizer.py: show_grayed")
         self.clear_selection()
         self.grayed_out = False
         for obj in range(1, 255):
@@ -984,8 +908,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def toggle_background_color(self):
-
-        self.log("visualizer.py: toggle_background_color")
         current_color = self.renderer.GetBackground()
 
         if current_color == (1, 1, 1):
@@ -998,8 +920,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def init_surfaces(self, unique_labels, t):
-
-        self.log("visualizer.py: init_surfaces")
 
         if t not in self.marchingCubes.keys():
             self.marchingCubes[t] = {}
@@ -1038,8 +958,6 @@ class Visualizer_3D:
 
     def init_surface_mappers(self):
 
-        self.log("visualizer.py: init_surface_mappers")
-
         for label in range(1, 256):
             self.surfaceMappers[label] = vtk.vtkPolyDataMapper()
             self.surfaceMappers[label].ScalarVisibilityOff()
@@ -1069,8 +987,6 @@ class Visualizer_3D:
     #############################################################################################################
 
     def set_current_image(self, image_index):
-
-        self.log("visualizer.py: set_current_image")
 
         # Method to set the current image index and update the display
         currentImageData = self.imageDataObjects[self.t]
@@ -1107,8 +1023,6 @@ class Visualizer_3D:
         :param point: The (x, y, z) coordinates of the clicked point.
         :return: None
         """
-        self.log("visualizer.py: find_clicked_object")
-        
         self.last_clicked_point = point
         # Determine which object was clicked based on point coordinates
         
@@ -1195,8 +1109,6 @@ class Visualizer_3D:
         Intended to be called when Ctrl+F is pressed.
         """
 
-        self.log("visualizer.py: open_input_popup")
-
         if self.grayed_out:
             self.show_grayed()
 
@@ -1244,8 +1156,6 @@ class Visualizer_3D:
         Now it extracts the original filenames and saves them in the new folder.
         """
 
-        self.log("visualizer.py: save_image_data_objects")
-
         self.show_all_labels()
         self.clear_selection()
         
@@ -1275,7 +1185,7 @@ class Visualizer_3D:
             file_path = os.path.join(folder_selected, original_filename)
 
             # Save the numpy array as a TIF file
-            imsave(file_path, array)
+            imwrite(file_path, array)
 
             print(f"Saved: {file_path}")
 
@@ -1284,8 +1194,6 @@ class Visualizer_3D:
 ##################################################################################################################
 
     def correction_magic_wand(self):
-
-        self.log("visualizer.py: correction_magic_wand")
         
         if not self.selected_voxels:
             print ("no selected voxels")
@@ -1325,8 +1233,6 @@ class Visualizer_3D:
 
     def merge(self):
 
-        self.log("visualizer.py: merge")
-
         if self.draw_line_mode:
             return
 
@@ -1364,31 +1270,16 @@ class Visualizer_3D:
         self.recolor(sources, destination)
 
     ##########################################################################################################################
-    def find_available_label(self):
+
+    def make_new(self):
+            
         # Find the maximum label
-        available_labels = list(range(1, 255))
+        max_label = 0
 
         for t in self.labels_per_image.keys():
-            for label in self.labels_per_image[t]:
-                if label in available_labels:
-                    available_labels.remove(label)
+            max_label = max(max_label, np.max(self.labels_per_image[t]))
 
-        if len (available_labels) > 0:
-            return available_labels[0]
-        else:
-            return 0
-
-    ##########################################################################################################################
-    def make_new(self):
-
-        self.log("visualizer.py: make_new")
-        
-        new_label = self.find_available_label()
-        
-        if new_label == 0:
-            print ("Can't create a new label, too many")
-            return
-            
+        new_label = max_label + 1
         print ("Created label " + str(new_label))
 
         for t in self.labels_per_image.keys():
@@ -1405,16 +1296,10 @@ class Visualizer_3D:
 
         self.destination_color = previous_destination
 
-        # After having done a correction, ensure the oversegmentation chunks don't span several real labels
-        real_img = self.get_numpy_array(self.t)
-        self.oversegmentations[self.t] = self.split_overseg_labels_spanning_several_real(real_img, self.oversegmentations[self.t])
-
     ##########################################################################################################################
 
     def get_numpy_array(self, t):
         """ Covert the VTK array for time point t back to numpy representation """
-
-        self.log("visualizer.py: get_numpy_array")
 
         image_data_object = self.imageDataObjects[t]
         # Extract the VTK array and convert it back to a NumPy array
@@ -1432,8 +1317,6 @@ class Visualizer_3D:
         
     def recolor(self, sources, destination):
         """ Helper function for merge(). """
-
-        self.log("visualizer.py: recolor")
 
         self.clear_selection()
 
@@ -1466,8 +1349,6 @@ class Visualizer_3D:
         Applies corrections to the currently modified objects at timepoint t, merging or separating labels as needed.
         """
         # Apply modifications to the selected region or object
-
-        self.log("visualizer.py: correction")
 
         if self.draw_line_mode:
             return
@@ -1528,8 +1409,6 @@ class Visualizer_3D:
         """
         # Clear current modifications and revert to original state
 
-        self.log("visualizer.py: clear_selection")
-
         if self.backup is not None:
             self.imageDataObjects[self.t].DeepCopy(self.backup)
             self.imageDataObjects[self.t].Modified()
@@ -1551,20 +1430,16 @@ class Visualizer_3D:
         self.renderer.GetRenderWindow().Render()
 
     def set_magic_wand_cursor(self):
-        self.log("visualizer.py: set_magic_wand_cursor")
         self.renderWindow.SetCurrentCursor(vtk.VTK_CURSOR_CROSSHAIR)
 
     #######################################################################################################
 
     def set_default_cursor(self):
-        self.log("visualizer.py: set_default_cursor")
         self.renderWindow.SetCurrentCursor(vtk.VTK_CURSOR_ARROW)
 
     #######################################################################################################
 
     def get_labels_from_file(self):
-
-        self.log("visualizer.py: get_labels_from_file")
 
         if not os.path.exists(self.hidden_objects_file):
             f = open(self.hidden_objects_file, "w+")
@@ -1583,9 +1458,6 @@ class Visualizer_3D:
     ###################################################################################################
 
     def new_group(self):
-
-        self.log("visualizer.py: new_group")
-        
         # Initiate a Tkinter root window but keep it hidden
         root = tk.Tk()
         root.withdraw()
@@ -1604,8 +1476,6 @@ class Visualizer_3D:
 
     def mark_labels(self, labels_to_mark):
 
-        self.log("visualizer.py: mark_labels")
-
         if 0 in labels_to_mark:
             labels_to_mark.remove(0)
             
@@ -1622,8 +1492,6 @@ class Visualizer_3D:
     ###################################################################################################
 
     def unmark_labels(self, labels_to_unmark):
-
-        self.log("visualizer.py: unmark_labels")
         
         if not os.path.exists(self.hidden_objects_file):
             return # nothing marked, so nothing to unmark
@@ -1641,8 +1509,6 @@ class Visualizer_3D:
         :param labels_to_hide: List of labels to be hidden in the visualization.
         """
         # Hide selected labels from the volume rendering
-
-        self.log("visualizer.py: show_unmarked")
 
         self.clear_selection()
 
@@ -1666,7 +1532,6 @@ class Visualizer_3D:
         :param labels_to_hide: List of labels to be hidden in the visualization.
         """
         # Hide selected labels from the volume rendering
-        self.log("visualizer.py: show_marked")
 
         self.clear_selection()
 
@@ -1688,8 +1553,6 @@ class Visualizer_3D:
         """
         Restores all previously hidden labels to full opacity, making them visible again in the visualization.
         """
-        self.log("visualizer.py: show_all_labels")
-        
         # Show all labels that were previously hidden
         for label in self.surfaceActors.keys():
             self.surfaceActors[label].SetVisibility(1)
@@ -1708,9 +1571,6 @@ class Visualizer_3D:
         
         :param point: A tuple or list of (x, y, z) coordinates in world space to center on.
         """
-
-        self.log("visualizer.py: center_on_point")
-        
         if not hasattr(self, 'renderer') or not self.renderer:
             print("Renderer is not initialized.")
             return
@@ -1736,7 +1596,6 @@ class Visualizer_3D:
         self.renderer.GetRenderWindow().Render()
 
     def toggle_shading(self):
-        self.log("visualizer.py: toggle_shading")
         pass
         #self.init_surface_mappers()
         #self.volume.GetProperty().SetShade(not self.volume.GetProperty().GetShade())
@@ -1745,8 +1604,6 @@ class Visualizer_3D:
     ###################################################################################################
 
     def split_overseg_label(self):
-
-        self.log("visualizer.py: split_overseg_label")
 
         N_random_points = 100
 
@@ -1817,9 +1674,6 @@ class Visualizer_3D:
     ###################################################################################################################
 
     def split_overseg_labels_spanning_several_real(self, img, overseg, label = None):
-        
-
-        self.log("visualizer.py: split_overseg_labels_spanning_several_real")
         unique_labels = np.unique(overseg)
         # Ensure we don't process the background (0 label)
         mask = overseg != 0
@@ -1867,8 +1721,6 @@ class Visualizer_3D:
 ################################################################################
 
     def translate_actor(self, direction, dx = 2, dy = 2, dz = 0):
-
-        self.log("visualizer.py: translate_actor")
 
         print (self.destination_color)
         if self.destination_color == 0:
@@ -1934,8 +1786,6 @@ class Visualizer_3D:
 
     def open_color_popup(self):
 
-        self.log("visualizer.py: open_color_popup")
-
         if len(self.selected_labels) == 0:
             return
         
@@ -1989,9 +1839,6 @@ class Visualizer_3D:
         
         :param file_path: Path to save the JPEG file.
         """
-
-        self.log("visualizer.py: save_current_view_as_jpeg")
-        
         # Create a vtkWindowToImageFilter and set your render window
         window_to_image_filter = vtk.vtkWindowToImageFilter()
         window_to_image_filter.SetInput(self.renderWindow)
@@ -2010,8 +1857,6 @@ class Visualizer_3D:
 
 
     def center_of_mass(self, img):
-
-        self.log("visualizer.py: center_of_mass")
 
         positive_coords = np.where(img > 0)
 
@@ -2033,9 +1878,6 @@ class Visualizer_3D:
         
         :param file_path: Path to save the JPEG file.
         """
-
-        self.log("visualizer.py: save_movie")
-        
         if not os.path.exists("movie"):
             os.mkdir("movie")
 
@@ -2060,14 +1902,18 @@ class Visualizer_3D:
                 self.gui.update_slider_position(self.t)
 
             self.textActor.SetInput("Time: " + str(self.t) + "/" + str(len(self.imageDataObjects) - 1))
+            
             self.renderer.GetRenderWindow().Render()
+
+            # Set antialiasing to improve edge smoothness
+            self.renderWindow.SetMultiSamples(8)
                 
             # Create a vtkWindowToImageFilter and set your render window
             window_to_image_filter = vtk.vtkWindowToImageFilter()
             window_to_image_filter.SetInput(self.renderWindow)
-            window_to_image_filter.SetScale(1)  # Adjust the scale to change the image quality/size
-            window_to_image_filter.SetInputBufferTypeToRGB()  # Also supports RGBA
-            window_to_image_filter.ReadFrontBufferOff()  # Read from the back buffer
+            window_to_image_filter.SetScale(4)  # Adjust the scale to change the image quality/size
+            #window_to_image_filter.SetInputBufferTypeToRGBA()  # Also supports RGBA
+            window_to_image_filter.ReadFrontBufferOn()  # Read from the back buffer
             window_to_image_filter.Update()
 
             # Create a vtkJPEGWriter and set the output file path
